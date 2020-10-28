@@ -1,0 +1,34 @@
+Microsoft Windows [Version 10.0.18363.1139]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\HP>python
+Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:43:08) [MSC v.1926 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import random
+>>> dir(random)
+['BPF', 'LOG4', 'NV_MAGICCONST', 'RECIP_BPF', 'Random', 'SG_MAGICCONST', 'SystemRandom', 'TWOPI', '_Sequence', '_Set', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', '_accumulate', '_acos', '_bisect', '_ceil', '_cos', '_e', '_exp', '_inst', '_log', '_os', '_pi', '_random', '_repeat', '_sha512', '_sin', '_sqrt', '_test', '_test_generator', '_urandom', '_warn', 'betavariate', 'choice', 'choices', 'expovariate', 'gammavariate', 'gauss', 'getrandbits', 'getstate', 'lognormvariate', 'normalvariate', 'paretovariate', 'randint', 'random', 'randrange', 'sample', 'seed', 'setstate', 'shuffle', 'triangular', 'uniform', 'vonmisesvariate', 'weibullvariate']
+>>> random.sample("Dhyanil Mehta", 4)
+['h', 'D', ' ', 'e']
+>>> random.sample("dhyanilmehta", 8)
+['a', 'h', 'l', 'h', 'i', 'm', 'd', 'y']
+>>> random.sample("dhyanilmehta", 12)
+['d', 'a', 'y', 'm', 'h', 'e', 'a', 't', 'n', 'i', 'l', 'h']
+>>> random.sample("dhyanil", 5) + "_" + random.sample("mehta", 4) + "@daiict.ac.in"
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate list (not "str") to list
+>>> str(random.sample("dhyanil", 5)) + "_" + str(random.sample("mehta", 4)) + "@daiict.ac.in"
+"['i', 'l', 'y', 'd', 'h']_['t', 'h', 'e', 'm']@daiict.ac.in"
+>>> "".join(random.sample("dhyanil", 5)) + "_" + "".join(random.sample("mehta", 4)) + "@daiict.ac.in"
+'ihyla_ehma@daiict.ac.in'
+>>> "".join(random.sample("dhyanil", 5)) + "_" + "".join(random.sample("mehta", 4)) + "@daiict.ac.in"
+'dlyhi_mate@daiict.ac.in'
+>>> name = "Dhyanil Mehta"
+>>> split_name = name.split(" ")
+>>> split_name
+['Dhyanil', 'Mehta']
+>>> "".join(random.sample(split_name[0].lower(), 5)) + "_" + "".join(random.sample(split_name[1].lower(), 4)) + "@daiict.ac.in"
+'ylanh_eaht@daiict.ac.in'
+>>> "".join(random.sample(split_name[0].lower(), 5)) + "_" + "".join(random.sample(split_name[1].lower(), 4)) + "@daiict.ac.in"
+'aydlh_ehta@daiict.ac.in'
+>>>
