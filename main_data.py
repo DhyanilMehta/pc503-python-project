@@ -1,18 +1,5 @@
 import random
-import datetime
-
-
-# Random date-time generator helper function
-def dateTimeGenerator():
-    datetime_list = []
-    for i in range(20):
-        month = random.randint(1, 12)
-        day = random.randint(1, 28)
-        hours = random.randint(0, 23)
-        minutes = random.randint(0, 59)
-        datetime_list.append(datetime.datetime(2020, month, day, hours, minutes).strftime("%H:%M hrs on %B %d, %Y"))
-
-    return datetime_list
+import main_data_util as mdu
 
 
 # Creating 4 files from About-DAIICT.txt
@@ -21,10 +8,10 @@ def generateHERAFiles():
         data = aboutDaiict.readlines()
 
         # Create files
-        history = open("History.txt", "w")
-        environment = open("Environment.txt", "w")
-        recognition = open("Recognition.txt", "w")
-        accreditation = open("Accreditation.txt", "w")
+        history = open("main_data_output/History.txt", "w")
+        environment = open("main_data_output/Environment.txt", "w")
+        recognition = open("main_data_output/Recognition.txt", "w")
+        accreditation = open("main_data_output/Accreditation.txt", "w")
 
         # Update appropriate text to files by iterating over data
         hisIdx, envIdx = data.index("History\n"), data.index("Environment\n")
@@ -64,17 +51,18 @@ def generateEmailFiles(student_name_list):
     print(emailNums)
 
     # Creating datetime list for randomising date-time in file
-    datetime_list = dateTimeGenerator()
+    datetime_list = mdu.dateTimeGenerator()
 
     # Task 5
     # Creating a new list by extending the original list by randomly chosen 5 names from the same list
     # and shuffling it for more randomness
-    student_list_extended = student_name_list + random.choices(student_name_list, k=5)
+    student_list_extended = student_name_list + random.sample(student_name_list, 5)
     random.shuffle(student_list_extended)
     print(student_list_extended)
+
     # Looping and generating files
     for i in range(len(emailNums) - 5):
-        emailTxt = open(f"email-{emailNums[i]}.txt", "w")
+        emailTxt = open(f"main_data_output/email-{emailNums[i]}.txt", "w")
         # Create email id
         split_student_name = student_list_extended[i].split(" ")
         assert len(split_student_name) == 2
@@ -82,37 +70,45 @@ def generateEmailFiles(student_name_list):
 
         # Write to newly generated file
         emailTxt.write(f"Received at {datetime_list[i]} from {email_id}\n")  # 5.(a)
-        emailTxt.write("\n")    # 5.(b)
-        emailTxt.write("Wave information")
-        # Some Tasks are still left
+        emailTxt.write("\n")  # 5.(b)
+        for line in mdu.random8LinesGenerator():  # 5.(c)
+            emailTxt.write(line)
+
         emailTxt.close()
+
+    # Task 6
+    # Generating spam email id text files with the same content as above generated files
+    spam_emails = ["name1@gmail.com", "A_X_y@yahoo.co.in", "nm123@rediff.com", "nam_4_e@160.com"]
+    random.shuffle(spam_emails)
+
+    # Generating files with the unused 4 numbers
+    offset = 15  # Offset for indexing unused numbers in emailNums list
+    for i in range(len(spam_emails)):
+        emailTxt = open(f"main_data_output/email-{emailNums[i + offset]}.txt", "w")
+
+        # Write to newly generated file
+        emailTxt.write(f"Received at {datetime_list[i+offset]} from {spam_emails[i]}\n")
+        emailTxt.write("\n")
+        for line in mdu.random8LinesGenerator():
+            emailTxt.write(line)
+
+        emailTxt.close()
+
+    # Task 7
+    # Generating one last email text file using the last unused number and a given email id
+    # and it will not have any wave lines
+    last_email_num, last_date_time = emailNums[-1], datetime_list[-1]
+    last_email_id = "pc_503@daiict.ac.in"
+
+    emailTxt = open(f"main_data_output/email-{last_email_num}.txt", "w")
+    emailTxt.write(f"Received at {last_date_time} from {last_email_id}\n")
+    emailTxt.write("\n")
+    for line in mdu.random8LinesGenerator(has_wave=False):  # Setting has_wave to False to not include any wave line
+        emailTxt.write(line)
+
+    emailTxt.close()
 
 
 if __name__ == "__main__":
     generateHERAFiles()
     generateEmailFiles(createStudentNameList())
-
-
-# TODO: 5. Randomly generate 15 files with file names: email-1.txt to email-20.txt.
-#   So, the name of the 13th file need not be email-13.txt, it can also be email-19.txt or email-5.txt.
-#   Content of each file (10 lines) should be as follows:
-#   a) First line should have time, date, month, year, email Id in the following format:
-#       Received at 17:23 hrs on October 7, 2018 from fname_lname@daiict.ac.in
-#       All entries must be randomly inserted and email Ids can be created from random elements of
-#       student_name_list. Obviously, there will be at least one or more files containing the same
-#       email Id since the number of students is 10 (<15).
-#   b) Second line should be blank.
-#   c) Third line to the tenth line must be the lines from the four above mentioned text files
-#       in random order such that (i) there is at least one line from each file and (ii) the lines
-#       taken from History.txt can include only one of the four sentences containing “first wave”, “second wave”,
-#       “third wave”, “fourth wave”. There is no restriction on other sentences in this text file.
-# TODO: 6. Randomly generate 4 more files using the above mentioned logic with two modifications:
-#       a) File name should be the unused numbers between 1 to 20.
-#       b) Email Ids must be taken from the following list: email_ids =[ name1@gmail.com,
-#       A_X_y@yahoo.co.in, nm123@rediff.com, nam_4_e@160.com].
-# TODO: 7. Randomly generate 1 more file using the above mentioned logic with three modifications:
-#       a) File name should be the unused number between 1 to 20.
-#       b) Email Id is pc_503@daiict.ac.in
-#       c) The lines taken from History.txt cannot include any one of the four sentences
-#   containing “first wave”, “second wave”, “third wave”, “fourth wave”. There is no
-#   restriction on other sentences in this text file.
