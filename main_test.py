@@ -41,13 +41,25 @@ def Task12():
     listWave3=[]
     listWave4=[]
 
+    Wave1=open(os.path.join(baseop,""))
     for file in listMail:
-        
-
-
-
-    dateName=tdu.extractDateName(listWave1)
+        print(file)
+        wave=tdu.findWave(file) 
+        if(wave=='1'):
+            listWave1.append(file)
+        elif(wave=='2'):
+            listWave2.append(file)
+        elif(wave=='3'):
+            listWave3.append(file)
+        elif(wave=='4'):
+            listWave4.append(file)
+    
+    with open(os.path.join(baseop,"ordererd_names_wave1.txt"),"w") as fp1:
+        orderedWave1=tdu.extractDateName(listWave1)
+        for name in orderedWave1:
+            fp1.writelines(name)
 
 # TODO: 13. Plot the number of users in each group and number of spam emails using a bar chart.
 
-Task11()
+if __name__ == "__main__":
+    Task12()
