@@ -29,13 +29,21 @@ def findWave(fname):
     with open(os.path.join(baseip,fname),"r") as fp:
         data=fp.readlines()
         r=re.compile(".* wave")
-        listMail=list(filter(r.match,data))
-        x=listMail[0].split("wave")
-        tmp=x[0].strip()
-        tmplist=tmp.split(" ")
-        if(tmplist[-1] == "first")
-            waveType="1"
-        #Last word extraction is remaining
-    # return waveType
+        listData=list(filter(r.match,data))
+        waveType=0
+        if(len(listData)!=0):
+            x=listData[0].split("wave")
+            tmp=x[0].strip()
+            tmplist=tmp.split(" ")
+
+            if(tmplist[-1] == "first"):
+                waveType="1"
+            elif(tmplist[-1] == "second"):
+                waveType="2"
+            elif(tmplist[-1] == "third"):
+                waveType="3"
+            elif(tmplist[-1] == "fourth"):
+                waveType="4"
+    return waveType
 
 findWave("email-10.txt")
