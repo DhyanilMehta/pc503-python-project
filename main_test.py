@@ -2,6 +2,7 @@ import os
 import test_data_util as tdu
 import re
 from datetime import datetime
+from matplotlib import pyplot as plt
 
 baseip="main_data_output/"
 baseop="test_data/"
@@ -41,9 +42,7 @@ def Task12():
     listWave3=[]
     listWave4=[]
 
-    Wave1=open(os.path.join(baseop,""))
     for file in listMail:
-        print(file)
         wave=tdu.findWave(file) 
         if(wave=='1'):
             listWave1.append(file)
@@ -56,10 +55,58 @@ def Task12():
     
     with open(os.path.join(baseop,"ordererd_names_wave1.txt"),"w") as fp1:
         orderedWave1=tdu.extractDateName(listWave1)
-        for name in orderedWave1:
-            fp1.writelines(name)
+        for name in orderedWave1.values():
+            fp1.writelines(name+"\n")
+    
+    with open(os.path.join(baseop,"ordererd_names_wave2.txt"),"w") as fp1:
+        orderedWave2=tdu.extractDateName(listWave2)
+        for name in orderedWave2.values():
+            fp1.writelines(name+"\n")
+
+    with open(os.path.join(baseop,"ordererd_names_wave3.txt"),"w") as fp1:
+        orderedWave3=tdu.extractDateName(listWave3)
+        for name in orderedWave3.values():
+            fp1.writelines(name+"\n")
+
+    with open(os.path.join(baseop,"ordererd_names_wave4.txt"),"w") as fp1:
+        orderedWave4=tdu.extractDateName(listWave4)
+        for name in orderedWave4.values():
+            fp1.writelines(name+"\n")
 
 # TODO: 13. Plot the number of users in each group and number of spam emails using a bar chart.
+def Task13():
+    data=dict()
+
+    for i in 
+    fp1=open(os.path.join(baseop,"ordererd_names_wave1.txt"),"r")
+    tmpList=fp1.readlines()
+    data["Wave1"]=len(tmpList)
+
+    fp1=open(os.path.join(baseop,"ordererd_names_wave2.txt"),"r")
+    tmpList=fp1.readlines()
+    data["Wave2"]=len(tmpList)
+
+    fp1=open(os.path.join(baseop,"ordererd_names_wave3.txt"),"r")
+    tmpList=fp1.readlines()
+    data["Wave3"]=len(tmpList)
+
+    fp1=open(os.path.join(baseop,"ordererd_names_wave4.txt"),"r")
+    tmpList=fp1.readlines()
+    data["Wave4"]=len(tmpList)
+
+    #for spam file
+    tmpList=os.listdir("main_data_output/")
+    r=re.compile("spam.*")
+    tmpList=list(filter(r.match,tmpList))
+    # data["Spam"]=len(list)
+
+    fig=plt.figure(figsize=(7,5)).canvas.set_window_title("Output")
+    graph=plt.bar(data.keys(),data.values(),color="maroon",width=0.3)
+    graph[4].set_color("blue")
+    plt.xlabel("Wave category")
+    plt.ylabel("Frequency")
+    plt.title("Frequency of wave statements")
+    plt.show()
 
 if __name__ == "__main__":
-    Task12()
+    Task13()

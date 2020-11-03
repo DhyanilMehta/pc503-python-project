@@ -17,11 +17,10 @@ def extractDateName(listMail):
         path=os.path.join(baseip,file)
         with open(path,"r") as Efile:
             str=Efile.readline()
-            data=re.findall("[0-9].*",str)
-               
+            data=re.findall("[0-9].*",str) 
             for i in range(len(data)):
                 x=data[i].split(" from ")
-                x[1]=x[1].rstrip("@daiict.ac.in")
+                x[1]=x[1].replace("@daiict.ac.in","")
                 dateName[x[0]]=x[1]
     return dateName
 
@@ -45,5 +44,3 @@ def findWave(fname):
             elif(tmplist[-1] == "fourth"):
                 waveType="4"
     return waveType
-
-findWave("email-10.txt")
