@@ -10,6 +10,24 @@ baseop="test_data/"
 # TODO: 9. Print the email Ids whose files do not have any “wave” information.
 #   In the current exercise, there is only one such entry.
 
+def print_not_wave():
+    listMail = tdu.find_file()
+    non_wave_email = []
+    for each_file in listMail:
+        with open(os.path.join(baseip,each_file),"r") as fp:
+            data = fp.read()
+            email_regex = '\S+@[0-9a-z._]*'
+            wave_regex = re.compile('(first|second|third|fourth)\s(wave)')
+            wave_search = re.search(wave_regex,data)
+            if not wave_search:
+                #print(wave_search.groups())
+                #print("yes")
+                find_email = re.findall(email_regex, data)
+                if(find_email):
+                    non_wave_email.append(find_email[0])
+    
+    print("Print the email Ids whose files do not have any “wave” information: ")
+    print(*non_wave_email)
 
 # TODO: 10. The users not having daiict email Id or without any “wave” information must be spammed.
 #   Rename the corresponding files as spam1.txt, spam2.txt, … and update their contents by
@@ -107,4 +125,5 @@ def Task13():
     plt.show()
 
 if __name__ == "__main__":
-    Task13()
+    # Task13()
+    print_not_wave()
