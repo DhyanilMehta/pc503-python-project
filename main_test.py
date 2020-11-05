@@ -34,7 +34,6 @@ def Task11():
 #   duplicate names and one name in each line. Similarly create files for the “second wave”,
 #   “third wave”, “fourth wave” groups.
 def Task12():
-    fileName="ordered_names_wave1.txt"
     listMail=tdu.find_file()
     #List to store all the filename who is containing relative information
     listWave1=[]
@@ -76,8 +75,7 @@ def Task12():
 # TODO: 13. Plot the number of users in each group and number of spam emails using a bar chart.
 def Task13():
     data=dict()
-
-    for i in 
+    
     fp1=open(os.path.join(baseop,"ordererd_names_wave1.txt"),"r")
     tmpList=fp1.readlines()
     data["Wave1"]=len(tmpList)
@@ -98,7 +96,7 @@ def Task13():
     tmpList=os.listdir("main_data_output/")
     r=re.compile("spam.*")
     tmpList=list(filter(r.match,tmpList))
-    # data["Spam"]=len(list)
+    data["Spam"]=len(tmpList)
 
     fig=plt.figure(figsize=(7,5)).canvas.set_window_title("Output")
     graph=plt.bar(data.keys(),data.values(),color="maroon",width=0.3)
