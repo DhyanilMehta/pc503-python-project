@@ -33,7 +33,27 @@ def print_not_wave():
 #   Rename the corresponding files as spam1.txt, spam2.txt, … and update their contents by
 #   adding a line at the beginning: “This email has been categorized as spam”.
 
-
+def check_spam():
+    listMail = tdu.find_file()
+    count = 0
+    spam_file_list = []
+    for each_file in listMail:
+        is_spam = False
+        with open(os.path.join(baseip,each_file),"r+") as fp:
+            data = fp.read()
+            find_email = re.search("@daiict.ac.in", data)
+            if(not find_email):
+                fp.seek(0)
+                fp.write("This email has been categorized as spam\n")
+                fp.write(data)
+                print("spam file detected: "+format(each_file))
+                spam_file_list.append(each_file)
+                count+=1
+                is_spam = True
+        if(is_spam):        
+            spam_file = "spam"+str(count)+".txt"        
+            os.rename(os.path.join(baseip,each_file),os.path.join(baseip,spam_file))
+    print("Total spam files: ",count)
 # TODO: 11. Create ordered_names.txt containing the user names (non-spam type) in the descending
 #   order of date-time etc., i.e. most recent first. One name in each line. Keep duplicate names.
 def Task11():
@@ -126,4 +146,5 @@ def Task13():
 
 if __name__ == "__main__":
     # Task13()
-    print_not_wave()
+    # print_not_wave()
+    # check_spam()

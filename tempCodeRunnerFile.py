@@ -1,0 +1,1 @@
+email_regex = re.compile('\S+(@daiict.ac.in)')
