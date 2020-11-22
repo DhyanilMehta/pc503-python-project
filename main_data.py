@@ -1,3 +1,8 @@
+"""
+    Authors: Dhyanil Mehta, Prahar Pandya, Kishan Vaishnani
+    Last Modified: 22-11-2020
+"""
+
 import random
 import main_data_util as mdu
 
