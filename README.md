@@ -64,4 +64,5 @@ Note: Randomize the codes so that every time they are executed, different output
 ## How to Run?
 1) To generate random data run "main_data.py" using "python3 main_data.py"
 2) To get all spam email and graphs run "test_data.py"
+
 Note: Before you run 2nd line you need to atleast run 1st line once.
