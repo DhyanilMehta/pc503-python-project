@@ -60,3 +60,8 @@ duplicate names and one name in each line. Similarly create files for the *“se
 13. Plot the number of users in each group and number of spam emails using a bar chart.<br>
 
 Note: Randomize the codes so that every time they are executed, different output is expected.
+
+How to Run?
+1) To generate random data run "main_data.py" using "python3 main_data.py"
+2) To get all spam email and graphs run "test_data.py"
+Note: Before you run 2nd line you need to atleast run 1st line once.
